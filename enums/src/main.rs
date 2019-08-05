@@ -1,6 +1,18 @@
 fn main() {
     let home = IpAddr::V4(127, 0, 0, 1);
     let loopback = IpAddr::V6(String::from("::1"));
+
+    // Option
+    let some_number: Option<i8> = Some(5);
+    let some_string: Option<String> = Some(String::from("Hello"));
+    if some_number.is_some() {
+        println!("=============={}", some_number.unwrap())
+    }
+
+    match some_string {
+        Some(s) => println!("{}", &s),
+        _ => println!("None ")
+    }
 }
 
 enum IpAddr {
