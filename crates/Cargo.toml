@@ -1,0 +1,16 @@
+[package]
+name = "crates"
+license = "MIT"
+version = "0.1.0"
+authors = ["TTcheng <ttchengwang@fomxail.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[profile.dev]
+# 优化级别 0-3 ，编译时长递增
+opt-level = 0
+
+[profile.release]
+opt-level = 3
+
+[dependencies]
