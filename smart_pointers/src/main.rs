@@ -12,11 +12,17 @@ fn main() {
     let b = Box::new(1);
     println!("b={}", b);
     /// 下面的代码将无法通过编译，递归的包含将使编译器无法计算需要的存储空间的大小
-    use box_pointer::List;
+    // use box_pointer::List;
     // let a = List::Cons(1, List::Nil);
     /// 使用 Box<T> 给递归类型一个已知的大小
     use box_pointer::ListBox::*;
     let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 
+    /// Box实现了`Deref trait`，可以直接使用解引用符号`*`
+    assert_eq!(1, *b);
+    /// 使用自定义智能指针
+    use crate::box_pointer::MyBox;
+    let five = MyBox::new(5);
+    assert_eq!(5, *five);
 
 }
