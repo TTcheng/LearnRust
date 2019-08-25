@@ -1,3 +1,5 @@
+use std::rc::Rc;
+
 /// 智能指针是一个在 Rust 经常被使用的通用设计模式
 ///
 /// **常用的智能指针如下**
@@ -7,6 +9,7 @@
 
 pub mod box_pointer;
 pub mod use_drop_trait;
+pub mod rc_pointer;
 
 fn main() {
     /// box在堆上存储数据
@@ -33,5 +36,18 @@ fn main() {
     drop(c);
     let d = CustomSmartPointer { data: String::from("other stuff") };
     println!("CustomSmartPointers created.");
+
+    use crate::rc_pointer::RcList;
+    /// 使用 Rc<T> 共享数据
+    let a = Rc::new(RcList::Cons(5, Rc::new(RcList::Cons(10, Rc::new(RcList::Nil)))));
+    println!("after creating a，count= {}", Rc::strong_count(&a));
+    /// 克隆 Rc<T> 会增加引用计数, 而不是深拷贝
+    let b = RcList::Cons(3, Rc::clone(&a));
+    println!("after creating b，count = {}", Rc::strong_count(&a));
+    {
+        let c = RcList::Cons(4, Rc::clone(&a));
+        println!("after creating c，count = {}", Rc::strong_count(&a));
+    }
+    println!("after c goes out of scope，count = {}", Rc::strong_count(&a));
     // 丢弃变量
 }
