@@ -6,6 +6,7 @@
 /// - Ref<T> 和 RefMut<T>，通过 RefCell<T> 访问，一个在运行时而不是在编译时执行借用规则的类型。
 
 pub mod box_pointer;
+pub mod use_drop_trait;
 
 fn main() {
     /// box在堆上存储数据
@@ -25,4 +26,12 @@ fn main() {
     let five = MyBox::new(5);
     assert_eq!(5, *five);
 
+    /// 使用`Drop Trait`在清理前运行代码
+    use crate::use_drop_trait::*;
+    let c = CustomSmartPointer { data: String::from("my stuff") };
+    // 通过 std::mem::drop 提早丢弃值
+    drop(c);
+    let d = CustomSmartPointer { data: String::from("other stuff") };
+    println!("CustomSmartPointers created.");
+    // 丢弃变量
 }
