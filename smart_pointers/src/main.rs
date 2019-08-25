@@ -7,6 +7,12 @@ use std::rc::Rc;
 /// - Rc<T>，一个引用计数类型，其数据可以有多个所有者
 /// - Ref<T> 和 RefMut<T>，通过 RefCell<T> 访问，一个在运行时而不是在编译时执行借用规则的类型。
 
+/// **如下为选择 Box<T>，Rc<T> 或 RefCell<T> 的理由：**
+///
+/// Rc<T> 允许相同数据有多个所有者；Box<T> 和 RefCell<T> 有单一所有者。
+/// Box<T> 允许在编译时执行不可变或可变借用检查；Rc<T>仅允许在编译时执行不可变借用检查；RefCell<T> 允许在运行时执行不可变或可变借用检查。
+/// 因为 RefCell<T> 允许在运行时执行可变借用检查，所以我们可以在即便 RefCell<T> 自身是不可变的情况下修改其内部的值。
+
 pub mod box_pointer;
 pub mod use_drop_trait;
 pub mod rc_pointer;
