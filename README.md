@@ -26,5 +26,9 @@
 `iterator`
 - 构建发布
 `crates`
+- 智能指针
+`smart_pointers`
+- 并发编程
+`concurrency`
 ## 实践项目
 - minigrep
